@@ -1,0 +1,15 @@
+{
+  "token": "NjU3MDA0ODU1OTU2NjAyOTMw.Xfq7dg.eG7qBF5-R1SrPKOwVsddiVUoEhg",
+  "name": "boomer-bot",
+  "version": "1.0.0",
+  "description": "calls out boomers",
+  "main": "coach.js",
+  "author": "Reesekin",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "libsodium-wrappers": "^0.7.6",
+    "opusscript": "0.0.7",
+    "python": "0.0.4",
+    "sqlite3": "^4.1.1"
+  }
+}
