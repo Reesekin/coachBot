@@ -1,31 +1,22 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('boomers');
 var list = '';
-var Boomers = [];
 
 
 db.serialize(function() {
   db.run("CREATE TABLE IF NOT EXISTS boomer (boomer_tag TEXT, id TEXT)");
   console.log('\nCoach bot by: Reesekin\n')
-  console.log('Boomer list loaded:\n' + '---------------------')
+  console.log('Boomer list loaded:\n' 
+            + '---------------------')
   db.all('SELECT tag FROM boomer', function(err, rows)
           {
             rows.forEach(function(row){
               console.log(row.tag);
-              list += ", " + row.tag.toString();
             })
           })
-  
-          db.all('SELECT id FROM boomer', function(err, rows)
-          {
-            rows.forEach(function(row){
-              Boomers.push(row.id);
-            })
-          })
-      //stmt.run("Reesekin");
-      //stmt.finalize();
 
 function reload(){
+
   db.all('SELECT tag FROM boomer', function(err, rows)
           {
             rows.forEach(function(row){
@@ -46,8 +37,8 @@ const PREFIX = '$';
 
 bot.on('message', message  => {
 
-  if (message.content === 'ultralite') {
-    message.reply('boomer spotted');
+  if (message.content === 'php') {
+    message.reply('Watch out, boomer!');
   }
 
   let args = message.content.substring(PREFIX.length).split(" ")
@@ -58,11 +49,31 @@ bot.on('message', message  => {
     else {
     switch(args[0]){
       case 'boomerify':
-            stmt.run(fMent.username, fMent.id);
-            stmt.finalize();
-            message.reply('Boomer ' +  fMent.username + ' is added to the database of boomers!');
+
+      var vibeCheck = false;
+
+        db.all('SELECT tag FROM boomer', function(err, rows)
+        {
+          rows.forEach(function(row){
+            if (fMent.id == row.id) {
+              vibeCheck = true;
+            }
+          })
+        });
+
+        if (vibeCheck){
+          message.reply('Boomer ' +  fMent.username + ' is already in the database of boomers!');
+            console.log('Boomer ' +  fMent.username + ' is already in the database of boomers!');
+        }
+        else if (!vibeCheck){
+                stmt.run(fMent.username, fMent.id);
+                stmt.finalize();
+                message.reply('Boomer ' +  fMent.username + ' is added to the database of boomers!');
+                console.log('Boomer ' +  fMent.username + ' is added to the database of boomers!');
+            }
+
         break;
-      
+        
       case 'boomer-list':
         reload();
         message.reply('List of Boomers' + list);
@@ -71,8 +82,6 @@ bot.on('message', message  => {
         db.run("DELETE FROM boomer WHERE id = " + fMent.id);
         message.reply( fMent.username + ' has been removed from the database of boomers.')
         break;
-      case 'boomer-id':
-        message.reply('ID is: ' + message.mentions.users.first().id);
     }
 }
   if (isReady && message.content === 'Boomer')
@@ -104,7 +113,7 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
      {
        rows.forEach(function(row){
          if(oldMember.id === row.id){
-           console.log('\nBoomer found! : ' + newMember.user.username);
+           console.log('\nBoomer detected! : ' + newMember.user.username);
           if (isReady)
             {
             isReady = false;
