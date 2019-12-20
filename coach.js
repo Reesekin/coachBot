@@ -12,6 +12,7 @@ db.serialize(function() {
           {
             rows.forEach(function(row){
               console.log(row.tag);
+              list += ", " + row.tag;
             })
           })
 
@@ -20,7 +21,7 @@ function reload(){
   db.all('SELECT tag FROM boomer', function(err, rows)
           {
             rows.forEach(function(row){
-              list += ", " + row.tag.toString();
+              list += ", " + row.tag;
             })
           });
 }
@@ -134,7 +135,7 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
      })
  
 
-  } else if(newUserChannel !== undefined){
+  } else if(newUserChannel !== undefined && oldUserChannel !== newUserChannel ){
 
     // User leaves a voice channel
     db.all('SELECT id FROM boomer', function(err, rows)
@@ -160,6 +161,7 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
         }
       })
     })
+
   }
 })
 
