@@ -1,8 +1,6 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('boomers');
 var list = '';
-
-
 db.serialize(function() {
   db.run("CREATE TABLE IF NOT EXISTS boomer (boomer_tag TEXT, id TEXT)");
   console.log('\nCoach bot by: Reesekin\n')
@@ -12,11 +10,9 @@ db.serialize(function() {
           {
             rows.forEach(function(row){
               console.log(row.tag);
-              list += ", " + row.tag;
             })
           })
 
-function reload(){
 
   db.all('SELECT tag FROM boomer', function(err, rows)
           {
@@ -24,7 +20,7 @@ function reload(){
               list += ", " + row.tag;
             })
           });
-}
+
 
 const token = 'NjU3MDA0ODU1OTU2NjAyOTMw.Xfq7dg.eG7qBF5-R1SrPKOwVsddiVUoEhg';
 var Discord = require('discord.js');
@@ -67,6 +63,7 @@ bot.on('message', message  => {
             console.log('Boomer ' +  fMent.username + ' is already in the database of boomers!');
         }
         else if (!vibeCheck){
+                list += ", " + fMent.username;
                 stmt.run(fMent.username, fMent.id);
                 stmt.finalize();
                 message.reply('Boomer ' +  fMent.username + ' is added to the database of boomers!');
@@ -76,11 +73,18 @@ bot.on('message', message  => {
         break;
         
       case 'boomer-list':
-        reload();
         message.reply('List of Boomers' + list);
+        console.log(list);
         break;
       case 'boomer-remove':
+        list = ''
         db.run("DELETE FROM boomer WHERE id = " + fMent.id);
+        db.all('SELECT tag FROM boomer', function(err, rows)
+        {
+          rows.forEach(function(row){
+            list += ", " + row.tag;
+          })
+        });
         message.reply( fMent.username + ' has been removed from the database of boomers.')
         break;
     }
@@ -165,5 +169,6 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
   }
 })
 
+list = '';
 bot.login(token);
 });
