@@ -134,10 +134,32 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
      })
  
 
-  } else if(newUserChannel === undefined){
+  } else if(newUserChannel !== undefined){
 
     // User leaves a voice channel
-    
+    db.all('SELECT id FROM boomer', function(err, rows)
+    {
+      rows.forEach(function(row){
+        if(oldMember.id === row.id){
+          console.log('\nBoomer detected! : ' + newMember.user.username);
+         if (isReady)
+           {
+           isReady = false;
+           var x = Math.floor((Math.random() * 4) + 1);
+           console.log('\nAudio file:' + x);
+           var voiceChannel = bot.channels.get(newMember.voiceChannelID);
+           voiceChannel.join().then(connection =>
+           {
+            const dispatcher = connection.playFile('./sounds/boomer' + x + '.mp3');
+            dispatcher.on("end", end => {
+               voiceChannel.leave();
+              });
+          }).catch(err => console.log(err));
+          isReady = true;
+         }
+        }
+      })
+    })
   }
 })
 
