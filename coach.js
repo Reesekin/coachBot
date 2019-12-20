@@ -32,17 +32,36 @@ var frameDuration = 20;
 var channels = 2;
 const PREFIX = '$';
 
-bot.on('message', message  => {
+bot.on('message', async message  => {
 
   if (message.content === 'php') {
     message.reply('Watch out, boomer!');
   }
 
+
+  if (message.content !== ''){
+  var chat = Math.floor((Math.random() * 100) + 1);
+  if (chat < 20){
+    db.all('SELECT id FROM boomer', function(err, rows)
+          {
+            rows.forEach(function(row){
+              if (message.member.id === row.id)
+                message.react('🆗')
+                  .then(() => message.react('🅱'))
+                  .then(() => message.react('🅾️'))
+                  .then(() => message.react('🇴'))
+                  .then(() => message.react('🇲'))
+                  .then(() => message.react('🇪'))
+                  .then(() => message.react('🇷'));
+            });
+          });
+  }
+}
   let args = message.content.substring(PREFIX.length).split(" ")
 
   let fMent = message.mentions.users.first()
   var stmt = db.prepare("INSERT INTO boomer VALUES (?, ?)");
-  if (args[1] == undefined && args[0] != 'boomer-list') {}
+  if (args[1] == undefined && args[0] != 'boomer-list' && args[0] != 'help') {}
     else {
     switch(args[0]){
       case 'boomerify':
@@ -87,6 +106,9 @@ bot.on('message', message  => {
         });
         message.reply( fMent.username + ' has been removed from the database of boomers.')
         break;
+      case 'help':
+        message.reply( '```' + 'Boomer bot written by Reesekin\n\n Description: A bot that calls out boomers who join voice channels\n\n Commands:\n\t $boomerify @name - adds boomer to the boomer-list\n\t $boomer-list - lists the boomers \n\t $boomer-remove @name - removes a person from the boomer list ' + '```')
+        break;
     }
 }
   if (isReady && message.content === 'Boomer' && message.member.voiceChannel !== undefined)
@@ -106,7 +128,7 @@ bot.on('message', message  => {
   }
 });
 
-bot.on('voiceStateUpdate', (oldMember, newMember) => {
+bot.on('voiceStateUpdate', async (oldMember, newMember) => {
   let newUserChannel = newMember.voiceChannel
   let oldUserChannel = oldMember.voiceChannel
 
