@@ -6,7 +6,8 @@ var list = '';
 db.serialize(function() {
   db.run("CREATE TABLE IF NOT EXISTS boomer (boomer_tag TEXT, id TEXT)");
   console.log('\nCoach bot by: Reesekin\n')
-  console.log('Boomer list loaded:\n' + '---------------------')
+  console.log('Boomer list loaded:\n' 
+            + '---------------------')
   db.all('SELECT tag FROM boomer', function(err, rows)
           {
             rows.forEach(function(row){
@@ -83,7 +84,7 @@ bot.on('message', message  => {
         break;
     }
 }
-  if (isReady && message.content === 'Boomer')
+  if (isReady && message.content === 'Boomer' && message.member.voiceChannel !== undefined)
   {
   isReady = false;
   var x = Math.floor((Math.random() * 4) + 1);
@@ -117,7 +118,7 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
             {
             isReady = false;
             var x = Math.floor((Math.random() * 4) + 1);
-            console.log('Audio file:' + x);
+            console.log('\nAudio file:' + x);
             var voiceChannel = bot.channels.get(newMember.voiceChannelID);
             voiceChannel.join().then(connection =>
             {
