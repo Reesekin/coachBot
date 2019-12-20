@@ -3,7 +3,7 @@ var db = new sqlite3.Database('boomers');
 var list = '';
 db.serialize(function() {
   db.run("CREATE TABLE IF NOT EXISTS boomer (boomer_tag TEXT, id TEXT)");
-  console.log('\nCoach bot by: Reesekin\n')
+  console.log('\nCoach bot by :: Reesekin\n')
   console.log('Boomer list loaded:\n' 
             + '---------------------')
   db.all('SELECT tag FROM boomer', function(err, rows)
@@ -12,8 +12,6 @@ db.serialize(function() {
               console.log(row.tag);
             })
           })
-
-
   db.all('SELECT tag FROM boomer', function(err, rows)
           {
             rows.forEach(function(row){
