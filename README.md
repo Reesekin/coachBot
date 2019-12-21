@@ -3,7 +3,7 @@
   <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/d5/d5ba520d3e5c4a8fbdc7ec25709cbbda9ad3921b_full.jpg">
 </p>
 
-# 🤮 Boomer bot written by: Reesekin 🤢
+# <h1 align="center">🤮 Boomer bot written by: Reesekin 🤢</h1>
   <p align="center">📜Description: A bot that calls out boomers who join 🎤Voice Channels<p>
   <p align="center">👾extra(s): 20% chance to react 🆗🅱🅾🇴Ⓜ🇪🇷</p>
   
