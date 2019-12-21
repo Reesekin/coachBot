@@ -100,7 +100,7 @@ bot.on('message', message  => {
   var atmt = db.prepare("INSERT INTO admins VALUES (?, ?)");
 
  
-  if (args[1] == undefined && args[0] != 'boomer-list' && args[0] != 'help') {}
+  if (args[1] == undefined && args[0] != 'boomer-list' && args[0].charAt(0) == '$') {}
     else {
 
       var admin = false;
@@ -189,7 +189,7 @@ bot.on('message', message  => {
         message.reply( '```' + '🤮 Boomer bot written by Reesekin 🤢\n\n 📜Description: A bot that calls out boomers who join 🎤Voice Channels\n\n 💻Commands:\n\t $boomerify @name - adds boomer to the boomer-list\n\t $boomer-list - lists the boomers \n\t $boomer-remove @name - removes a person from the boomer list \n\t $admin @name - adds user to admin list \n\t $remove-admin @name - removes admin privileges ' + '```')
         break;
     }
-  } else if (message.member.id != '657004855956602930') { message.reply('Insufficient permissions!');}
+  } else { if (message.member.id == '657004855956602930' && message.author.bot ){} else if ( !message.author.bot && message.content == '$' ) {message.reply('Insufficient permissions!')};}
 });
 }
 
