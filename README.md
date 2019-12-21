@@ -2,7 +2,7 @@
 
   📜Description: A bot that calls out boomers who join 🎤Voice Channels
   
-  -extra(s): 20% chance to react 🆗🅱🅾🇴Ⓜ🇷
+  👾extra(s): 20% chance to react 🆗🅱🅾🇴Ⓜ🇷
   
   💻Commands: 
       $boomerify @name - adds boomer to the boomer-list
