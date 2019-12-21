@@ -20,6 +20,6 @@
       1.Install ffmpeg & node.js and set enviroment paths
       2.Open up 'coach.js' and insert your bot token and invite your bot to your server.
       3. Run Boomer_Run.bat
-      4. Type '$op' to give yourself admin.<br />
+      4. Type '$op' to give yourself admin.
       5. Add people to the boomer-list and wait for them to join your channel.
       6. Coach will come in and warns you about a boomer in your channel. Enjoy!
