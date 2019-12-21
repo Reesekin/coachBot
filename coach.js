@@ -1,5 +1,5 @@
 var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('boomers');
+var db = new sqlite3.Database('boomers.sqlite3');
 var list = '';
 db.serialize(function() {
   db.run("CREATE TABLE IF NOT EXISTS boomer (tag TEXT, id TEXT)");
@@ -43,8 +43,10 @@ bot.on('message', message  => {
     message.reply('Watch out, boomer!');
   }
 
-  if (message.member.hasPermission('KICK_MEMBERS', false, false)) {
-    if (message.content === '$op') {
+
+    if (message.content === '$op')   
+    {
+      if (message.member.hasPermission('KICK_MEMBERS', false, false)) {
       var admin = false;
 
       db.all('SELECT id FROM admins', function(err, rows)
@@ -60,14 +62,15 @@ bot.on('message', message  => {
         }
 
         else if (!admin){
-          atmt.run(message.member.username, message.member.id);
+          atmt.run(message.member.user.username, message.member.id);
           atmt.finalize();
-          message.reply(message.member.username + ' is now an admin!');
-          console.log(message.member.username + ' is now an admin!');
+          message.reply(' is now an admin!');
+          console.log(message.member.user.username + ' is now an admin!');
         }
 
       });
-    }
+    } 
+    else if (message.member.id != '657004855956602930') { message.reply('Insufficient permissions!');}
   }
 
 
