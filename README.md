@@ -2,7 +2,7 @@
 
   📜Description: A bot that calls out boomers who join 🎤Voice Channels
   
-  👾extra(s): 20% chance to react 🆗🅱🅾🇴Ⓜ🇷
+  👾extra(s): 20% chance to react 🆗🅱🅾🇴Ⓜ🇪🇷
   
   💻Commands: 
       $boomerify @name - adds boomer to the boomer-list
@@ -14,7 +14,8 @@
       
 🚧Installation: 
 1.Install ffmpeg & node.js and set enviroment paths
-2. Run Boomer_Run.bat
-3. Type '$op' to give yourself admin
-4. Add people to the boomer-list and wait for them to join your channel
-5. Coach will come in and warns you about a boomer in your channel
+2.Open up 'coach.js' and insert your bot token.
+3. Run Boomer_Run.bat
+4. Type '$op' to give yourself admin.
+5. Add people to the boomer-list and wait for them to join your channel.
+6. Coach will come in and warns you about a boomer in your channel. Enjoy!
