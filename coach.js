@@ -22,7 +22,7 @@ db.serialize(function() {
           });
 
 
-const token = 'NjU3MDA0ODU1OTU2NjAyOTMw.Xfq7dg.eG7qBF5-R1SrPKOwVsddiVUoEhg';
+const token = '';
 var Discord = require('discord.js');
 var bot = new Discord.Client();
 var isReady = true;
