@@ -5,7 +5,7 @@
   👾extra(s): 20% chance to react 🆗🅱🅾🇴Ⓜ🇪🇷
   
   💻Commands: 
-      \n$boomerify @name - adds boomer to the boomer-list
+      $boomerify @name - adds boomer to the boomer-list
       $boomer-list - lists the boomers 
       $boomer-remove @name - removes a person from the boomer list 
       $admin @name - adds user to admin list 
