@@ -5,7 +5,8 @@
 
 # <h1 align="center">🤮 Boomer bot written by: Reesekin 🤢</h1>
   <p align="center">📜Description: A bot that calls out boomers who join 🎤Voice Channels<p>
-  <p align="center">👾extra(s): 20% chance to react 🆗🅱🅾🇴Ⓜ🇪🇷</p>
+  <p align="center">👾extra(s): 20% chance to react</p>
+   <p align="center"><img src="https://puu.sh/ERPcw/aebca3328b.png" /></p>
   
  # 💻Commands: 
       $boomerify @name - adds boomer to the boomer-list
