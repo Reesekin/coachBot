@@ -2,7 +2,9 @@ var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('boomers');
 var list = '';
 db.serialize(function() {
-  db.run("CREATE TABLE IF NOT EXISTS boomer (boomer_tag TEXT, id TEXT)");
+  db.run("CREATE TABLE IF NOT EXISTS boomer (tag TEXT, id TEXT)");
+  db.run("CREATE TABLE IF NOT EXISTS admins (tag TEXT, id TEXT)");
+
   console.log('\nCoach bot by :: Reesekin\n')
   console.log('Boomer list loaded:\n' 
             + '---------------------')
@@ -30,13 +32,46 @@ var frameDuration = 20;
 var channels = 2;
 const PREFIX = '$';
 
-bot.on('message', async message  => {
+bot.on("ready", () => {
+  bot.user.setActivity(`Left 4 Dead 2`);
+});
+
+
+bot.on('message', message  => {
 
   if (message.content === 'php') {
     message.reply('Watch out, boomer!');
   }
 
+  if (message.member.hasPermission('KICK_MEMBERS', false, false)) {
+    if (message.content === '$op') {
+      var admin = false;
 
+      db.all('SELECT id FROM admins', function(err, rows)
+      {
+        rows.forEach(function(row){
+          if (message.member.id == row.id) {
+            admin = true;
+          }
+        })
+
+        if (admin) {
+          message.reply('you are already an admin')
+        }
+
+        else if (!admin){
+          atmt.run(message.member.username, message.member.id);
+          atmt.finalize();
+          message.reply(message.member.username + ' is now an admin!');
+          console.log(message.member.username + ' is now an admin!');
+        }
+
+      });
+    }
+  }
+
+
+//reactions
   if (message.content !== ''){
   var chat = Math.floor((Math.random() * 100) + 1);
   if (chat < 20){
@@ -59,36 +94,50 @@ bot.on('message', async message  => {
 
   let fMent = message.mentions.users.first()
   var stmt = db.prepare("INSERT INTO boomer VALUES (?, ?)");
+  var atmt = db.prepare("INSERT INTO admins VALUES (?, ?)");
+
+ 
   if (args[1] == undefined && args[0] != 'boomer-list' && args[0] != 'help') {}
     else {
+
+      var admin = false;
+
+      db.all('SELECT id FROM admins', function(err, rows)
+      {
+        rows.forEach(function(row){
+          if (message.member.id == row.id) {
+            admin = true;
+          }
+        })
+
+      if (admin) {
+    
     switch(args[0]){
       case 'boomerify':
 
       var vibeCheck = false;
 
-        db.all('SELECT tag FROM boomer', function(err, rows)
+      db.all('SELECT id FROM boomer', function(err, rows)
         {
           rows.forEach(function(row){
             if (fMent.id == row.id) {
               vibeCheck = true;
             }
           })
-        });
-
-        if (vibeCheck){
-          message.reply('Boomer ' +  fMent.username + ' is already in the database of boomers!');
-            console.log('Boomer ' +  fMent.username + ' is already in the database of boomers!');
-        }
-        else if (!vibeCheck){
+        if(!vibeCheck){
                 list += ", " + fMent.username;
                 stmt.run(fMent.username, fMent.id);
                 stmt.finalize();
                 message.reply('Boomer ' +  fMent.username + ' is added to the database of boomers!');
                 console.log('Boomer ' +  fMent.username + ' is added to the database of boomers!');
-            }
-
+              }
+        else if (vibeCheck){
+            message.reply('Boomer ' +  fMent.username + ' is already in the database of boomers!');
+            console.log('Boomer ' +  fMent.username + ' is already in the database of boomers!');
+        }
+      })
         break;
-        
+      
       case 'boomer-list':
         message.reply('List of Boomers' + list);
         console.log(list);
@@ -104,11 +153,47 @@ bot.on('message', async message  => {
         });
         message.reply( fMent.username + ' has been removed from the database of boomers.')
         break;
+      case 'admin':
+        
+        var vibeCheck = false;
+
+        db.all('SELECT id FROM admins', function(err, rows)
+        {
+          rows.forEach(function(row){
+            if (fMent.id == row.id) {
+              vibeCheck = true;
+            }
+          })
+        if (vibeCheck){
+          message.reply(fMent.username + ' is already an admin!');
+            console.log(fMent.username + ' is already an admin!');
+        }
+        else if (!vibeCheck){
+                atmt.run(fMent.username, fMent.id);
+                atmt.finalize();
+                message.reply(fMent.username + ' is now an admin!');
+                console.log(fMent.username + ' is now an admin!');
+            }
+      });
+      break;
+
+      case 'remove-admin':
+        db.run("DELETE FROM admins WHERE id = " + fMent.id);
+        message.reply( fMent.username + ' has been removed from admins.')
+        break;
+
       case 'help':
-        message.reply( '```' + 'Boomer bot written by Reesekin\n\n Description: A bot that calls out boomers who join voice channels\n\n Commands:\n\t $boomerify @name - adds boomer to the boomer-list\n\t $boomer-list - lists the boomers \n\t $boomer-remove @name - removes a person from the boomer list ' + '```')
+        message.reply( '```' + '🤮 Boomer bot written by Reesekin 🤢\n\n 📜Description: A bot that calls out boomers who join 🎤Voice Channels\n\n 💻Commands:\n\t $boomerify @name - adds boomer to the boomer-list\n\t $boomer-list - lists the boomers \n\t $boomer-remove @name - removes a person from the boomer list \n\t $admin @name - adds user to admin list \n\t $remove-admin @name - removes admin privileges ' + '```')
         break;
     }
+  } else if (message.member.id != '657004855956602930') { message.reply('Insufficient permissions!');}
+});
 }
+
+
+
+
+
   if (isReady && message.content === 'Boomer' && message.member.voiceChannel !== undefined)
   {
   isReady = false;
