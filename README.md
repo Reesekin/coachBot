@@ -1,4 +1,4 @@
-🤮 Boomer bot written by: Reesekin 🤢
+# H1 🤮 Boomer bot written by: Reesekin 🤢
 
   📜Description: A bot that calls out boomers who join 🎤Voice Channels
   
