@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/d5/d5ba520d3e5c4a8fbdc7ec25709cbbda9ad3921b_full.jpg">
+  <img src="https://puu.sh/ERPen/2d28ea8e5c.png" />
 </p>
 
 # <h1 align="center">🤮 Boomer bot written by: Reesekin 🤢</h1>
